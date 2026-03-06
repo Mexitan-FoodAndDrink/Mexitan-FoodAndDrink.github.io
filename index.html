@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mexitan — Food & Drink</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --negro: #0e0c0a;
+      --crema: #f5ede0;
+      --naranja: #c94b1f;
+      --dorado: #d4a537;
+      --gris: #3a3632;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--negro);
+      color: var(--crema);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      border-bottom: 1px solid rgba(212,165,55,0.25);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,75,31,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 0.6rem;
+    }
+
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--crema);
+    }
+
+    .logo-name span {
+      color: var(--naranja);
+      font-style: italic;
+    }
+
+    .logo-tagline {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245,237,224,0.45);
+      margin-top: 0.75rem;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .ornament::before, .ornament::after {
+      content: '';
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, transparent, var(--dorado));
+    }
+
+    .ornament::after {
+      background: linear-gradient(90deg, var(--dorado), transparent);
+    }
+
+    .ornament-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--dorado);
+      transform: rotate(45deg);
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      padding: 1.25rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,12,10,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(212,165,55,0.15);
+    }
+
+    nav a {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,237,224,0.55);
+      text-decoration: none;
+      padding: 0.45rem 1rem;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--crema);
+      background: rgba(201,75,31,0.15);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.25rem 5rem;
+    }
+
+    /* ── SECTION ── */
+    .menu-section {
+      margin-top: 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-weight: 400;
+      color: var(--crema);
+      white-space: nowrap;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(212,165,55,0.5), transparent);
+    }
+
+    /* ── ITEM ── */
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(245,237,224,0.07);
+      transition: background 0.2s;
+    }
+
+    .menu-item:hover {
+      background: rgba(201,75,31,0.05);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      margin: 0 -0.5rem;
+      border-radius: 4px;
+    }
+
+    .item-info { flex: 1; }
+
+    .item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--crema);
+      margin-bottom: 0.2rem;
+    }
+
+    .item-desc {
+      font-size: 0.78rem;
+      color: rgba(245,237,224,0.45);
+      line-height: 1.5;
+    }
+
+    .item-tag {
+      display: inline-block;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    .tag-hot { background: rgba(201,75,31,0.25); color: var(--naranja); }
+    .tag-new { background: rgba(212,165,55,0.2); color: var(--dorado); }
+
+    .item-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--dorado);
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 1px solid rgba(212,165,55,0.15);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: rgba(245,237,224,0.25);
+      text-transform: uppercase;
+    }
+
+    footer strong {
+      color: var(--dorado);
+      font-weight: 400;
+    }
+
+    /* ── SCROLL BEHAVIOR ── */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="logo-eyebrow">Bienvenido a</p>
+    <h1 class="logo-name">Mexi<span>tan</span></h1>
+    <p class="logo-tagline">Food &amp; Drink</p>
+    <div class="ornament"><div class="ornament-diamond"></div></div>
+  </header>
+
+  <nav>
+    <a href="#entradas">Entradas</a>
+    <a href="#tacos">Tacos</a>
+    <a href="#especialidades">Especialidades</a>
+    <a href="#postres">Postres</a>
+    <a href="#bebidas">Bebidas</a>
+  </nav>
+
+  <main>
+
+    <!-- ENTRADAS -->
+    <section class="menu-section" id="entradas">
+      <div class="section-header">
+        <h2 class="section-title">Entradas</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Guacamole clásico <span class="item-tag tag-new">Nuevo</span></p>
+          <p class="item-desc">Aguacate, jitomate, cebolla, cilantro y chile serrano. Con totopos artesanales.</p>
+        </div>
+        <p class="item-price">$89</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Esquites al chipotle <span class="item-tag tag-hot">Picante</span></p>
+          <p class="item-desc">Elote tierno, mayonesa de chipotle, queso cotija y limón.</p>
+        </div>
+        <p class="item-price">$75</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Sopa de lima yucateca</p>
+          <p class="item-desc">Caldo de pollo, tiras de tortilla, pechuga desmenuzada y lima asada.</p>
+        </div>
+        <p class="item-price">$95</p>
+      </div>
+    </section>
+
+    <!-- TACOS -->
+    <section class="menu-section" id="tacos">
+      <div class="section-header">
+        <h2 class="section-title">Tacos</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Taco al pastor</p>
+          <p class="item-desc">Cerdo adobado en achiote, piña, cebolla y cilantro. Tortilla de maíz.</p>
+        </div>
+        <p class="item-price">$35 c/u</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Taco de birria <span class="item-tag tag-hot">Picante</span></p>
+          <p class="item-desc">Res estofada en consomé de chile guajillo, con cebolla y orégano. Con consomé para dip.</p>
+        </div>
+        <p class="item-price">$45 c/u</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Taco de canasta (3 pzs)</p>
+          <p class="item-desc">A elegir: frijol, papa con chorizo o chicharrón en salsa verde.</p>
+        </div>
+        <p class="item-price">$90</p>
+      </div>
+    </section>
+
+    <!-- ESPECIALIDADES -->
+    <section class="menu-section" id="especialidades">
+      <div class="section-header">
+        <h2 class="section-title">Especialidades</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Mole negro oaxaqueño <span class="item-tag tag-new">Nuevo</span></p>
+          <p class="item-desc">Pechuga de pollo en mole de siete chiles, ajonjolí y chocolate amargo. Con arroz rojo.</p>
+        </div>
+        <p class="item-price">$185</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Cochinita pibil</p>
+          <p class="item-desc">Cerdo marinado en achiote y naranja agria, cocido lento. Con cebolla morada encurtida.</p>
+        </div>
+        <p class="item-price">$165</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Enchiladas verdes</p>
+          <p class="item-desc">Tres piezas rellenas de pollo, bañadas en salsa de tomatillo y crema. Con queso fresco.</p>
+        </div>
+        <p class="item-price">$145</p>
+      </div>
+    </section>
+
+    <!-- POSTRES -->
+    <section class="menu-section" id="postres">
+      <div class="section-header">
+        <h2 class="section-title">Postres</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Tres leches de cajeta</p>
+          <p class="item-desc">Bizcocho esponjoso empapado en tres leches con cajeta artesanal de Celaya.</p>
+        </div>
+        <p class="item-price">$75</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Churros con chocolate</p>
+          <p class="item-desc">Churros fritos con azúcar y canela, acompañados de salsa de chocolate oscuro.</p>
+        </div>
+        <p class="item-price">$65</p>
+      </div>
+    </section>
+
+    <!-- BEBIDAS -->
+    <section class="menu-section" id="bebidas">
+      <div class="section-header">
+        <h2 class="section-title">Bebidas</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Agua de Jamaica</p>
+          <p class="item-desc">Infusión fría de flor de Jamaica con un toque de jengibre. 500 ml.</p>
+        </div>
+        <p class="item-price">$45</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Margarita clásica</p>
+          <p class="item-desc">Tequila blanco, triple sec, jugo de limón y sal de gusano en el borde.</p>
+        </div>
+        <p class="item-price">$110</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="item-info">
+          <p class="item-name">Michelada Mexitan <span class="item-tag tag-hot">Picante</span></p>
+          <p class="item-desc">Cerveza con clamato, salsas, limón y mezcla secreta de especias de la casa.</p>
+        </div>
+        <p class="item-price">$95</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>Mexitan</strong> &mdash; Food &amp; Drink &mdash; Menú de temporada</p>
+    <p style="margin-top:0.4rem">Los precios incluyen IVA &middot; Consulta alérgenos con tu mesero</p>
+  </footer>
+
+</body>
+</html>
