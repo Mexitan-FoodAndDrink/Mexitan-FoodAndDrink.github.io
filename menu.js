@@ -8,27 +8,30 @@ firebase.initializeApp({
 });
 const db = firebase.firestore();
 
-// Mapeo: nombre de categoría en Firestore → sección de la página
-const SECTION_MAP = {
-  'Comida':              'comida',
-  'Chilaquiles':         'comida',
-  'Huevo al Gusto':      'comida',
-  'Sandwiches':          'comida',
-  'Antojitos':           'antojitos',
-  'Burritos':            'antojitos',
-  'Molletes':            'antojitos',
-  'Quesocarne':          'antojitos',
-  'Hot Dogs / Boneless': 'antojitos',
-  'Crepas / Waffles':    'antojitos',
-  'Banderillas':         'antojitos',
-  'Burgers':             'burger',
-  'Pakistán — Chai':     'pakistan',
-  'Pakistán — Snacks':   'pakistan',
-  'Cold Drink':          'pakistan',
-  'Bebidas Calientes':   'bebidas',
-  'Herbal Tea / Tés':    'bebidas',
-  'Bebidas Frías':       'bebidas',
-};
+// Detecta a qué sección pertenece una categoría por palabras clave.
+// Normaliza el nombre: minúsculas, sin acentos, guiones convertidos a espacio.
+// Así funciona sin importar cómo exactamente esté escrito en Firestore.
+const SECTION_RULES = [
+  { id: 'burger',    keywords: ['burger', 'hamburgues'] },
+  { id: 'pakistan',  keywords: ['pakistan', 'chai', 'pakora', 'lassi', 'rooh', 'doodh', 'kadak', 'masala', 'adrak', 'dalchini', 'elaichi', 'gud wali', 'cold drink'] },
+  { id: 'bebidas',   keywords: ['bebida', 'cafe', 'coffee', 'capucho', 'chocolate', 'nescafe', 'expres', 'americano', 'frap', 'malteada', 'agua', 'herbal', 'infus', 'te negro', 'te verde', 'te de', 'ponche', 'chamoyada', 'aguas frescas'] },
+  { id: 'antojitos', keywords: ['antojito', 'burrito', 'mollete', 'quesocarne', 'hot dog', 'boneless', 'crepa', 'waffle', 'hot cake', 'pan fran', 'nacho', 'enchilad', 'sincroni', 'banderill', 'salada'] },
+  { id: 'comida',    keywords: ['comida', 'chilaquil', 'huevo', 'sandwich', 'papa', 'salchipulp', 'alita'] },
+];
+
+function normalize(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // quitar acentos
+    .replace(/[—–\-]/g, ' ');                         // normalizar guiones
+}
+
+function getSectionId(catName) {
+  const n = normalize(catName);
+  for (const rule of SECTION_RULES) {
+    if (rule.keywords.some(kw => n.includes(kw))) return rule.id;
+  }
+  return null; // va a "Otros"
+}
 
 // Secciones de la página en orden
 const PAGE_SECTIONS = [
@@ -75,7 +78,7 @@ function renderMenu(categorias) {
   const extras = [];
 
   categorias.forEach(cat => {
-    const sid = SECTION_MAP[cat.cat];
+    const sid = getSectionId(cat.cat);
     if (sid) bySection[sid].push(cat);
     else     extras.push(cat);
   });
