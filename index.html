@@ -5,224 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mexitán — Mexico Pakistan Food & Drink</title>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&family=Pacifico&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --verde:       #1e9438;
-      --verde-oscuro:#166a28;
-      --verde-claro: #25b044;
-      --naranja:     #e8521c;
-      --blanco:      #ffffff;
-      --blanco-70:   rgba(255,255,255,0.70);
-      --blanco-40:   rgba(255,255,255,0.40);
-      --blanco-15:   rgba(255,255,255,0.15);
-      --blanco-08:   rgba(255,255,255,0.08);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--verde);
-      color: var(--blanco);
-      font-family: 'Barlow', sans-serif;
-      font-weight: 400;
-      min-height: 100vh;
-    }
-
-    /* HEADER */
-    header {
-      text-align: center;
-      padding: 2.8rem 1.5rem 2rem;
-      background: var(--verde-oscuro);
-      border-bottom: 3px solid var(--naranja);
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% -20%, rgba(232,82,28,0.22) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .logo-name {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(2.6rem, 9vw, 5rem);
-      color: var(--blanco);
-      line-height: 1;
-      text-shadow: 3px 3px 0px rgba(0,0,0,0.3);
-    }
-    .logo-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(0.75rem, 2.5vw, 1rem);
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--blanco-70);
-      margin-top: 0.4rem;
-    }
-    .logo-tagline {
-      display: inline-block;
-      background: var(--naranja);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      padding: 0.3rem 1rem;
-      border-radius: 2px;
-      margin-top: 1rem;
-    }
-
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.2rem;
-      padding: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(22,106,40,0.97);
-      backdrop-filter: blur(6px);
-      border-bottom: 2px solid var(--naranja);
-    }
-    nav a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--blanco-70);
-      text-decoration: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 3px;
-      border: 1px solid transparent;
-      transition: all 0.18s;
-    }
-    nav a:hover {
-      color: var(--blanco);
-      background: var(--naranja);
-      border-color: var(--naranja);
-    }
-
-    /* MAIN */
-    main { max-width: 860px; margin: 0 auto; padding: 0 1rem 5rem; }
-
-    /* PAGE SECTION */
-    .page-section { margin-top: 3rem; padding-top: 1rem; }
-    .page-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1.6rem, 5vw, 2.4rem);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--blanco);
-      border-left: 5px solid var(--naranja);
-      padding-left: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    /* MENU SECTION */
-    .menu-section { margin-bottom: 1.8rem; }
-    .section-label {
-      display: inline-block;
-      background: var(--naranja);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1rem, 3.5vw, 1.35rem);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.3rem 0.9rem;
-      border-radius: 3px;
-      margin-bottom: 0.6rem;
-      color: var(--blanco);
-    }
-    .section-label .pi { font-size: 0.82em; font-weight: 600; opacity: 0.9; }
-
-    /* ITEMS */
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.75rem;
-      padding: 0.55rem 0.5rem;
-      border-bottom: 1px solid var(--blanco-15);
-      transition: background 0.15s, padding-left 0.15s;
-      border-radius: 3px;
-    }
-    .menu-item:hover { background: var(--blanco-08); padding-left: 0.85rem; }
-    .item-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--blanco);
-      flex: 1;
-    }
-    .item-note {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 300;
-      color: var(--blanco-70);
-      display: block;
-      margin-top: 0.1rem;
-    }
-    .item-price {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--blanco);
-      white-space: nowrap;
-    }
-    .item-full {
-      padding: 0.45rem 0.5rem;
-      font-size: 0.8rem;
-      color: var(--blanco-70);
-      border-bottom: 1px solid var(--blanco-15);
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    /* GRID */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
-    @media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
-
-    /* CREPAS TABLE */
-    .crepa-table { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem 1rem; margin-top: 0.5rem; }
-    .crepa-col-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--naranja); margin-bottom: 0.3rem;
-    }
-    .crepa-list { list-style: none; font-size: 0.85rem; color: var(--blanco-70); line-height: 1.9; }
-
-    /* SALADAS */
-    .salada-item { padding: 0.55rem 0.5rem; border-bottom: 1px solid var(--blanco-15); font-size: 0.85rem; }
-    .salada-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--naranja); margin-right: 0.4rem; }
-    .salada-desc { color: var(--blanco-70); }
-
-    /* DIVIDER */
-    .divider { height: 1px; background: linear-gradient(90deg, var(--naranja), transparent); margin: 2rem 0; opacity: 0.4; }
-
-    /* FOOTER */
-    footer {
-      background: var(--verde-oscuro);
-      border-top: 3px solid var(--naranja);
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-    }
-    .footer-logo { font-family: 'Pacifico', cursive; font-size: 1.8rem; color: var(--blanco); margin-bottom: 0.75rem; }
-    .footer-info { font-size: 0.82rem; color: var(--blanco-70); line-height: 2; }
-    .footer-info a { color: var(--naranja); text-decoration: none; }
-    .footer-badge {
-      display: inline-block;
-      background: var(--naranja);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700; font-size: 0.75rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.3rem 0.9rem; border-radius: 3px; margin-top: 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -230,7 +13,7 @@
   <img src="logo.png" alt="Mexitán" style="max-height:160px;width:auto;display:block;margin:0 auto;" />
 </header>
 
-<nav>
+<nav id="main-nav">
   <a href="#comida">Comida</a>
   <a href="#antojitos">Antojitos</a>
   <a href="#burger">Burgers</a>
@@ -239,379 +22,11 @@
 </nav>
 
 <main>
-
-  <!-- COMIDA MEXICANA -->
-  <section class="page-section" id="comida">
-    <h2 class="page-title">Menú de Comida</h2>
-
-    <div class="menu-section">
-      <div class="section-label">Alitas <span class="pi">$100</span></div>
-      <div class="menu-item">
-        <span class="item-name">6 piezas <span class="item-note">Papas fritas y verdura</span></span>
-        <span class="item-price">$100</span>
-      </div>
+  <div id="menu-root">
+    <div class="menu-status">
+      <div class="spinner"></div><br>Cargando menú…
     </div>
-
-    <div class="menu-section">
-      <div class="section-label">Papas</div>
-      <div class="menu-item"><span class="item-name">Papas a la francesa</span><span class="item-price">$40</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Salchipulpos</div>
-      <div class="menu-item"><span class="item-name">Salchipulpos</span><span class="item-price">$50</span></div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="menu-section">
-      <div class="section-label">Chilaquiles</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Sencillos</span><span class="item-price">$50</span></div>
-          <div class="menu-item"><span class="item-name">Huevo</span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$70</span></div>
-          <div class="menu-item"><span class="item-name">Longaniza</span><span class="item-price">$70</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Bistec</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Campechanos</span><span class="item-price">$90</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Huevo al Gusto</div>
-      <div class="item-full">Incluye frijoles y tortillas</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Jamón</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Tocino</span><span class="item-price">$80</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Longaniza</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">A la mexicana</span><span class="item-price">$80</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Sandwiches</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Huevo</span><span class="item-price">$50</span></div>
-          <div class="menu-item"><span class="item-name">Jamón</span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$60</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$70</span></div>
-          <div class="menu-item"><span class="item-name">Combinado</span><span class="item-price">$70</span></div>
-          <div class="menu-item"><span class="item-name">Club sandwich c/papas</span><span class="item-price">$100</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ANTOJITOS -->
-  <section class="page-section" id="antojitos">
-    <h2 class="page-title">Antojitos y Más</h2>
-
-    <div class="menu-section">
-      <div class="section-label">Enchiladas</div>
-      <div class="item-full">Incluye frijoles</div>
-      <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$80</span></div>
-      <div class="menu-item"><span class="item-name">Bistec</span><span class="item-price">$80</span></div>
-      <div class="menu-item"><span class="item-name">Gratinadas</span><span class="item-price">$100</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Sincronizada</div>
-      <div class="menu-item"><span class="item-name">Jamón y queso</span><span class="item-price">$60</span></div>
-      <div class="menu-item"><span class="item-name">Pollo y queso</span><span class="item-price">$80</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Burritos</div>
-      <div class="item-full">Incluye papas a la francesa</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Huevo</span><span class="item-price">$100</span></div>
-          <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$100</span></div>
-          <div class="menu-item"><span class="item-name">Longaniza</span><span class="item-price">$100</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$120</span></div>
-          <div class="menu-item"><span class="item-name">Bistec</span><span class="item-price">$120</span></div>
-          <div class="menu-item"><span class="item-name">Combinado</span><span class="item-price">$130</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Banderillas</div>
-      <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$40</span></div>
-      <div class="menu-item"><span class="item-name">Queso</span><span class="item-price">$50</span></div>
-      <div class="menu-item"><span class="item-name">Combinada</span><span class="item-price">$50</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Molletes</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Sencillos</span><span class="item-price">$40</span></div>
-          <div class="menu-item"><span class="item-name">Jamón</span><span class="item-price">$50</span></div>
-          <div class="menu-item"><span class="item-name">Tocino</span><span class="item-price">$50</span></div>
-          <div class="menu-item"><span class="item-name">Longaniza</span><span class="item-price">$50</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Bistec</span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Combinado</span><span class="item-price">$60</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Quesocarne <span class="pi">(1 pza)</span></div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Salchicha</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Longaniza</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Pollo</span><span class="item-price">$40</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Bistec</span><span class="item-price">$40</span></div>
-          <div class="menu-item"><span class="item-name">Campechano</span><span class="item-price">$50</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Hot Dogs</div>
-      <div class="menu-item"><span class="item-name">Sencillo</span><span class="item-price">$20</span></div>
-      <div class="menu-item"><span class="item-name">Con quesillo</span><span class="item-price">$25</span></div>
-      <div class="menu-item"><span class="item-name">Con tocino</span><span class="item-price">$30</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Boneless <span class="pi">$120</span></div>
-      <div class="menu-item">
-        <span class="item-name">½ kilo <span class="item-note">Incluye papas y verdura</span></span>
-        <span class="item-price">$120</span>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="menu-section">
-      <div class="section-label">Crepas Dulces <span class="pi">$50</span></div>
-      <div class="crepa-table">
-        <div>
-          <div class="crepa-col-title">Base</div>
-          <ul class="crepa-list">
-            <li>Cajeta</li><li>Lechera</li><li>Nutella</li><li>Fresa</li><li>Zarzamora</li>
-          </ul>
-        </div>
-        <div>
-          <div class="crepa-col-title">Relleno</div>
-          <ul class="crepa-list">
-            <li>Plátano</li><li>Fresa</li><li>Durazno</li><li>Piña</li>
-          </ul>
-        </div>
-        <div>
-          <div class="crepa-col-title">Topping</div>
-          <ul class="crepa-list">
-            <li>Nuez</li><li>Chocolate</li><li>Almendra</li><li>Pistache</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Saladas <span class="pi">$70</span></div>
-      <div class="salada-item"><span class="salada-name">Clásica:</span><span class="salada-desc">Jamón, manchego</span></div>
-      <div class="salada-item"><span class="salada-name">Hawaiana:</span><span class="salada-desc">Piña, jamón, manchego, salsa de tomate</span></div>
-      <div class="salada-item"><span class="salada-name">Italiana:</span><span class="salada-desc">Peperoni, manchego, salsa de tomate</span></div>
-      <div class="salada-item"><span class="salada-name">Marinera:</span><span class="salada-desc">Atún, piña, queso manchego, salsa de tomate</span></div>
-      <div class="salada-item"><span class="salada-name">Campestre:</span><span class="salada-desc">Champiñones, salsa de tomate y manchego</span></div>
-    </div>
-
-    <div class="two-col">
-      <div>
-        <div class="menu-section">
-          <div class="section-label">Waffles</div>
-          <div class="menu-item"><span class="item-name">1 pieza</span><span class="item-price">$50</span></div>
-        </div>
-        <div class="menu-section">
-          <div class="section-label">Hot Cakes</div>
-          <div class="menu-item"><span class="item-name">2 piezas</span><span class="item-price">$50</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="menu-section">
-          <div class="section-label">Pan Francés</div>
-          <div class="menu-item"><span class="item-name">2 piezas</span><span class="item-price">$50</span></div>
-        </div>
-        <div class="menu-section">
-          <div class="section-label">Nachos</div>
-          <div class="menu-item"><span class="item-name">Sencillos</span><span class="item-price">$30</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BURGERS -->
-  <section class="page-section" id="burger">
-    <h2 class="page-title">Burgers</h2>
-    <div class="menu-section">
-      <div class="section-label">Burger!</div>
-      <div class="menu-item"><span class="item-name">Sencilla</span><span class="item-price">$80</span></div>
-      <div class="menu-item"><span class="item-name">Doble queso</span><span class="item-price">$90</span></div>
-      <div class="menu-item"><span class="item-name">Con tocino</span><span class="item-price">$90</span></div>
-      <div class="menu-item"><span class="item-name">Con salchicha</span><span class="item-price">$90</span></div>
-      <div class="menu-item"><span class="item-name">Hawaiana</span><span class="item-price">$100</span></div>
-      <div class="menu-item"><span class="item-name">Doble carne</span><span class="item-price">$145</span></div>
-      <div class="menu-item">
-        <span class="item-name">Especial <span class="item-note">Jamón · Quesillo · Tocino · Salchicha · BBQ</span></span>
-        <span class="item-price">$150</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MENÚ PAKISTÁN -->
-  <section class="page-section" id="pakistan">
-    <h2 class="page-title">Menú de Pakistán</h2>
-
-    <div class="menu-section">
-      <div class="section-label">Chai (Tea)</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Doodh Patti <span class="item-note" style="display:inline;font-size:.78rem">/ Milk tea</span></span><span class="item-price">$65</span></div>
-          <div class="menu-item"><span class="item-name">Simple Tea</span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Gud wali chai <span class="item-note" style="display:inline;font-size:.78rem">/ Jaggery</span></span><span class="item-price">$60</span></div>
-          <div class="menu-item"><span class="item-name">Black Tea <span class="item-note" style="display:inline;font-size:.78rem">/ Sin leche</span></span><span class="item-price">$35</span></div>
-          <div class="menu-item"><span class="item-name">Kadak chai <span class="item-note" style="display:inline;font-size:.78rem">/ Strong tea</span></span><span class="item-price">$65</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Masala Chai</span><span class="item-price">$65</span></div>
-          <div class="menu-item"><span class="item-name">Adrak Chai <span class="item-note" style="display:inline;font-size:.78rem">/ Ginger</span></span><span class="item-price">$65</span></div>
-          <div class="menu-item"><span class="item-name">Dalchini chai <span class="item-note" style="display:inline;font-size:.78rem">/ Cinnamon</span></span><span class="item-price">$65</span></div>
-          <div class="menu-item"><span class="item-name">Elaichi chai <span class="item-note" style="display:inline;font-size:.78rem">/ Cardamom</span></span><span class="item-price">$65</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Pakistani Snacks</div>
-      <div class="menu-item"><span class="item-name">Potato Pakora</span><span class="item-price">$145</span></div>
-      <div class="menu-item"><span class="item-name">Onion Pakora</span><span class="item-price">$145</span></div>
-      <div class="menu-item"><span class="item-name">Chicken Pakora</span><span class="item-price">$165</span></div>
-      <div class="menu-item"><span class="item-name">Fish Pakora</span><span class="item-price">$165</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Cold Drink</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Sweet Lassi</span><span class="item-price">$70</span></div>
-          <div class="menu-item"><span class="item-name">Lassi fresa</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Salted Lassi</span><span class="item-price">$60</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Mint Lassi</span><span class="item-price">$80</span></div>
-          <div class="menu-item"><span class="item-name">Rooh afza (agua)</span><span class="item-price">$70</span></div>
-          <div class="menu-item"><span class="item-name">Rooh afza (leche)</span><span class="item-price">$80</span></div>
-        </div>
-      </div>
-      <div class="item-full">Rooh Afza: bebida refrescante de pétalos de rosa, agua, azúcar y limón, originaria de Asia</div>
-    </div>
-  </section>
-
-  <!-- BEBIDAS -->
-  <section class="page-section" id="bebidas">
-    <h2 class="page-title">Bebidas</h2>
-
-    <div class="menu-section">
-      <div class="section-label">Bebidas Calientes</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Expresso (1 shot)</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Expresso (doble shot)</span><span class="item-price">$50</span></div>
-          <div class="menu-item"><span class="item-name">Americano de grano</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Capuchino</span><span class="item-price">$40</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Chocolate</span><span class="item-price">$40</span></div>
-          <div class="menu-item"><span class="item-name">Café de olla</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Nescafé</span><span class="item-price">$20</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Herbal Tea</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Ginger Lemon Tea</span><span class="item-price">$35</span></div>
-          <div class="menu-item"><span class="item-name">Peppermint / Mint tea</span><span class="item-price">$35</span></div>
-          <div class="menu-item"><span class="item-name">Cinnamon Tea</span><span class="item-price">$35</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Chamomile Tea</span><span class="item-price">$35</span></div>
-          <div class="menu-item"><span class="item-name">Lemongrass Tea</span><span class="item-price">$35</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Tés e Infusiones</div>
-      <div class="two-col">
-        <div>
-          <div class="menu-item"><span class="item-name">Té negro</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Té verde</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Té de canela</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Té de manzanilla</span><span class="item-price">$30</span></div>
-        </div>
-        <div>
-          <div class="menu-item"><span class="item-name">Té de hierbabuena</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Té de jengibre</span><span class="item-price">$30</span></div>
-          <div class="menu-item"><span class="item-name">Ponche (temporada)</span><span class="item-price">$40</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Bebidas Frías</div>
-      <div class="menu-item"><span class="item-name">Chamoyadas</span><span class="item-price">$50</span></div>
-      <div class="menu-item">
-        <span class="item-name">Aguas frescas <span class="item-note">Jamaica · Limón · Mango (temporada) · Tamarindo</span></span>
-      </div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Frappés <span class="pi">$50</span></div>
-      <div class="item-full">Chocolate · Café · Vainilla · Chocomenta · Fresa · Moka · Capuccino · Horchata</div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Malteadas <span class="pi">(lleva helado)</span></div>
-      <div class="menu-item"><span class="item-name">Fresa</span><span class="item-price">$70</span></div>
-      <div class="menu-item"><span class="item-name">Chocolate</span><span class="item-price">$70</span></div>
-      <div class="menu-item"><span class="item-name">Vainilla</span><span class="item-price">$70</span></div>
-    </div>
-
-    <div class="menu-section">
-      <div class="section-label">Agua</div>
-      <div class="menu-item">
-        <span class="item-name">Jarra de agua <span class="item-note">Horchata · Jamaica · Tamarindo</span></span>
-        <span class="item-price">$100</span>
-      </div>
-      <div class="menu-item"><span class="item-name">Vaso de agua</span><span class="item-price">$30</span></div>
-    </div>
-  </section>
-
+  </div>
 </main>
 
 <footer>
@@ -621,57 +36,60 @@
   <div class="footer-info">
     <div>Mexico Pakistan · Food &amp; Drink</div>
 
+    <div style="display:flex;justify-content:center;gap:1.2rem;margin-top:1.4rem;">
 
-<!-- REDES SOCIALES -->
-  <div style="display:flex;justify-content:center;gap:1.2rem;margin-top:1.4rem;">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/525548178005" target="_blank" rel="noopener" aria-label="WhatsApp"
+         style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
+         onmouseover="this.style.background='#25d366'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.985l6.305-1.653A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.002-1.366l-.36-.214-3.733.979 1.002-3.64-.235-.374A9.818 9.818 0 1 1 12 21.818z"/>
+        </svg>
+      </a>
 
-<!-- WhatsApp -->
-    <a href="https://wa.me/525548178005" target="_blank" rel="noopener" aria-label="WhatsApp"
-       style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
-       onmouseover="this.style.background='#25d366'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.985l6.305-1.653A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.002-1.366l-.36-.214-3.733.979 1.002-3.64-.235-.374A9.818 9.818 0 1 1 12 21.818z"/>
-      </svg>
-    </a>
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/share/1WWwpEZZic/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"
+         style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
+         onmouseover="this.style.background='#1877f2'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </a>
 
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/1WWwpEZZic/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"
-       style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
-       onmouseover="this.style.background='#1877f2'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-      </svg>
-    </a>
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@mexitan_cdmx" target="_blank" rel="noopener" aria-label="TikTok"
+         style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
+         onmouseover="this.style.background='#010101'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+        </svg>
+      </a>
 
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@mexitan_cdmx" target="_blank" rel="noopener" aria-label="TikTok"
-       style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
-       onmouseover="this.style.background='#010101'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="white">
-        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
-      </svg>
-    </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/mexitan_cdmx" target="_blank" rel="noopener" aria-label="Instagram"
+         style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
+         onmouseover="this.style.background='#e1306c'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+        </svg>
+      </a>
 
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/mexitan_cdmx" target="_blank" rel="noopener" aria-label="Instagram"
-       style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,0.12);border-radius:50%;"
-       onmouseover="this.style.background='#e1306c'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
-      </svg>
-    </a>
+    </div>
+    <div style="font-size:0.68rem;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:0.6rem;">Síguenos en redes</div>
 
+    <div style="margin-top:1.2rem">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.20125695883274!2d-99.1165513046359!3d19.402893391147813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff9aa3bcf777%3A0x8c02969db265a116!2sMexitan%20food%20%26%20Drink!5e0!3m2!1ses-419!2smx!4v1772850481206!5m2!1ses-419!2smx" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="footer-badge" style="margin-top:0.8rem">Entrega a domicilio · Pedido mínimo $300</div>
   </div>
-  <div style="font-size:0.68rem;letter-spacing:0.12em;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:0.6rem;">Síguenos en redes</div>
-
-  <div style="margin-top:1.2rem">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235.20125695883274!2d-99.1165513046359!3d19.402893391147813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff9aa3bcf777%3A0x8c02969db265a116!2sMexitan%20food%20%26%20Drink!5e0!3m2!1ses-419!2smx!4v1772850481206!5m2!1ses-419!2smx" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  </div>
-  <div class="footer-badge" style="margin-top:0.8rem">Entrega a domicilio · Pedido mínimo $300</div>
 </footer>
 
+<!-- Firebase SDK (solo lectura, sin auth) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="menu.js"></script>
 </body>
 </html>
