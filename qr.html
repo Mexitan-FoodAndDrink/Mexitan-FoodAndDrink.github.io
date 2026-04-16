@@ -107,17 +107,51 @@
       line-height: 1.5;
     }
 
-    /* Impresión: ocultar todo excepto la tarjeta */
+    /* Layout específico para pantalla */
+    .screen-layout {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Contenedor oculto en pantalla, visible al imprimir */
+    .print-layout {
+      display: none;
+    }
+
+    /* Impresión: mostrar varios tamaños */
     @media print {
-      body { background: #fff; padding: 0; }
-      .actions, .hint { display: none; }
-      .card { box-shadow: none; border: none; }
+      body { background: #fff; padding: 10px; display: block; }
+      .screen-layout { display: none !important; }
+      .print-layout { 
+        display: flex !important; 
+        flex-wrap: wrap; 
+        gap: 15px; 
+        justify-content: space-evenly;
+        align-items: flex-start;
+      }
+      .print-layout .card { 
+        box-shadow: none; 
+        border: 2px dashed #ccc; /* Línea de corte */
+        page-break-inside: avoid;
+        margin: 0;
+      }
+      .print-label {
+        width: 100%;
+        text-align: center;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1rem;
+        color: #555;
+        margin-bottom: 5px;
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="card">
+<div class="screen-layout">
+<div class="card" id="main-card">
   <div class="brand-header">
     <img src="logo-full.png" alt="Mexitán" />
     <span class="brand-sub">Mexico Pakistan · Food &amp; Drink</span>
@@ -135,6 +169,11 @@
   </div>
 
   <p class="hint">Escanea para ver el menú completo</p>
+</div>
+</div>
+
+<div class="print-layout" id="print-layout">
+  <!-- JavaScript inyectará aquí las diferentes tarjetas para imprimir -->
 </div>
 
 <!-- qrcode-generator: genera la matriz QR sin dependencias -->
@@ -220,9 +259,79 @@
     drawQR(qr, ctx, canvasSize, moduleCount);
 
     const logo = new Image();
-    logo.onload  = () => drawLogo(ctx, canvasSize, logo);
-    logo.onerror = () => {}; // si no carga el logo, el QR sigue siendo válido
+    logo.onload  = () => {
+      drawLogo(ctx, canvasSize, logo);
+      preparePrintLayout();
+    };
+    logo.onerror = () => {
+      preparePrintLayout(); // Prepara de todos modos si falla
+    };
     logo.src = 'logo-full.png';
+  }
+
+  function preparePrintLayout() {
+    const mainCard = document.getElementById('main-card');
+    const printLayout = document.getElementById('print-layout');
+    const canvas = document.getElementById('qr-canvas');
+    if (!mainCard || !printLayout || !canvas) return;
+
+    const qrDataUrl = canvas.toDataURL('image/png');
+
+    function createPrintCard(scale, labelText, padding, gap, subFontSize, urlFontSize) {
+      const wrapper = document.createElement('div');
+      wrapper.style.width = scale;
+
+      const label = document.createElement('div');
+      label.className = 'print-label';
+      label.innerText = labelText;
+      wrapper.appendChild(label);
+
+      const clone = mainCard.cloneNode(true);
+      clone.removeAttribute('id');
+
+      // Eliminar botones y hint para no imprimirlos
+      const actions = clone.querySelector('.actions');
+      if (actions) actions.remove();
+      const hint = clone.querySelector('.hint');
+      if (hint) hint.remove();
+
+      // Ajustar espaciados según el tamaño proporcionado
+      clone.style.maxWidth = 'none';
+      clone.style.width = '100%';
+      clone.style.padding = padding;
+      clone.style.gap = gap;
+      clone.querySelector('.brand-sub').style.fontSize = subFontSize;
+      clone.querySelector('.url-label').style.fontSize = urlFontSize;
+
+      // Reemplazar <canvas> por <img> para que se imprima
+      const oldCanvas = clone.querySelector('canvas');
+      if (oldCanvas) {
+        const newImg = document.createElement('img');
+        newImg.src = qrDataUrl;
+        newImg.style.width = '100%';
+        newImg.style.height = 'auto';
+        newImg.style.display = 'block';
+        oldCanvas.parentNode.replaceChild(newImg, oldCanvas);
+      }
+
+      wrapper.appendChild(clone);
+      return wrapper;
+    }
+
+    // Renderizamos tres tamaños distintos para imprimir
+    printLayout.innerHTML = '';
+    
+    // 1x Pared (Grande) - Ocupa toda la fila (~98%)
+    printLayout.appendChild(createPrintCard('98%', 'TAMAÑO PARED / CAJA', '2.2rem', '1.2rem', '0.72rem', '0.95rem'));
+    
+    // 2x Mesa (Mediano) - 2 por fila (~48%)
+    printLayout.appendChild(createPrintCard('48%', 'TAMAÑO MESA', '1.5rem', '0.8rem', '0.60rem', '0.85rem'));
+    printLayout.appendChild(createPrintCard('48%', 'TAMAÑO MESA', '1.5rem', '0.8rem', '0.60rem', '0.85rem'));
+
+    // 3x Menú (Pequeño) - 3 por fila (~31%)
+    printLayout.appendChild(createPrintCard('31%', 'TAMAÑO MENÚ FÍSICO', '1rem', '0.5rem', '0.45rem', '0.70rem'));
+    printLayout.appendChild(createPrintCard('31%', 'TAMAÑO MENÚ FÍSICO', '1rem', '0.5rem', '0.45rem', '0.70rem'));
+    printLayout.appendChild(createPrintCard('31%', 'TAMAÑO MENÚ FÍSICO', '1rem', '0.5rem', '0.45rem', '0.70rem'));
   }
 
   function downloadQR() {
