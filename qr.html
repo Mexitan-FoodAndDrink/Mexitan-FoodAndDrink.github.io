@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR — Mexitán Food & Drink</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --verde:        #1e9438;
+      --verde-oscuro: #166a28;
+      --naranja:      #e8521c;
+      --blanco:       #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--verde);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      font-family: 'Barlow', sans-serif;
+    }
+
+    .card {
+      background: var(--blanco);
+      border-radius: 16px;
+      padding: 2.2rem 2.4rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .brand-header img {
+      max-height: 90px;
+      width: auto;
+    }
+    .brand-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--verde-oscuro);
+      opacity: 0.7;
+    }
+
+    .qr-wrapper {
+      position: relative;
+      border: 3px solid var(--naranja);
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+    }
+    #qr-canvas {
+      display: block;
+      border-radius: 6px;
+    }
+
+    .url-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--verde-oscuro);
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.4rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: var(--naranja); color: #fff; }
+    .btn-secondary { background: var(--verde); color: #fff; }
+
+    .hint {
+      font-size: 0.72rem;
+      color: #888;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Impresión: ocultar todo excepto la tarjeta */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .actions, .hint { display: none; }
+      .card { box-shadow: none; border: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand-header">
+    <img src="logo.png" alt="Mexitán" />
+    <span class="brand-sub">Mexico Pakistan · Food &amp; Drink</span>
+  </div>
+
+  <div class="qr-wrapper">
+    <canvas id="qr-canvas"></canvas>
+  </div>
+
+  <div class="url-label">mexitan-foodanddrink.github.io</div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="downloadQR()">⬇ Descargar PNG</button>
+    <button class="btn btn-secondary" onclick="window.print()">🖨 Imprimir</button>
+  </div>
+
+  <p class="hint">Escanea para ver el menú completo</p>
+</div>
+
+<!-- qrcode-generator: genera la matriz QR sin dependencias -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+  const QR_URL    = 'https://mexitan-foodanddrink.github.io/';
+  const CELL      = 12;   // píxeles por módulo
+  const MARGIN    = 4;    // módulos de margen blanco (estándar)
+  const LOGO_FRAC = 0.24; // el logo ocupa el 24% del ancho del QR
+
+  // Colores de marca
+  const COLOR_DARK = '#166a28'; // verde-oscuro para los módulos oscuros
+  const COLOR_LIGHT = '#ffffff';
+
+  function buildQR() {
+    // Nivel H = 30% corrección de error, necesario para cubrir con logo
+    const qr = qrcode(0, 'H');
+    qr.addData(QR_URL);
+    qr.make();
+    return qr;
+  }
+
+  function drawQR(qr, ctx, canvasSize, moduleCount) {
+    const offset = MARGIN * CELL;
+
+    // Fondo blanco
+    ctx.fillStyle = COLOR_LIGHT;
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
+
+    // Módulos
+    for (let row = 0; row < moduleCount; row++) {
+      for (let col = 0; col < moduleCount; col++) {
+        ctx.fillStyle = qr.isDark(row, col) ? COLOR_DARK : COLOR_LIGHT;
+        ctx.fillRect(offset + col * CELL, offset + row * CELL, CELL, CELL);
+      }
+    }
+  }
+
+  function drawLogo(ctx, canvasSize, logoImg) {
+    const logoSize  = Math.round(canvasSize * LOGO_FRAC);
+    const pad       = 8; // padding blanco alrededor del logo
+    const totalSize = logoSize + pad * 2;
+    const x         = (canvasSize - totalSize) / 2;
+    const y         = (canvasSize - totalSize) / 2;
+
+    // Fondo blanco con borde redondeado
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.10)';
+    ctx.shadowBlur  = 6;
+    roundRect(ctx, x, y, totalSize, totalSize, 8);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    ctx.restore();
+
+    // Logo
+    ctx.drawImage(logoImg, x + pad, y + pad, logoSize, logoSize);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h);
+    ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+
+  function init() {
+    const qr          = buildQR();
+    const moduleCount = qr.getModuleCount();
+    const canvasSize  = (moduleCount + MARGIN * 2) * CELL;
+
+    const canvas = document.getElementById('qr-canvas');
+    canvas.width  = canvasSize;
+    canvas.height = canvasSize;
+    const ctx = canvas.getContext('2d');
+
+    drawQR(qr, ctx, canvasSize, moduleCount);
+
+    const logo = new Image();
+    logo.crossOrigin = 'anonymous';
+    logo.onload  = () => drawLogo(ctx, canvasSize, logo);
+    logo.onerror = () => {}; // si no carga el logo, el QR sigue siendo válido
+    logo.src = 'logo.png';
+  }
+
+  function downloadQR() {
+    const canvas = document.getElementById('qr-canvas');
+    const link   = document.createElement('a');
+    link.download = 'mexitan-qr.png';
+    link.href     = canvas.toDataURL('image/png');
+    link.click();
+  }
+
+  init();
+</script>
+</body>
+</html>
